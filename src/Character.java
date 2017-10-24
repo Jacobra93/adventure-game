@@ -28,7 +28,7 @@ public class Character {
     }
 
     public void displayCharacter() {
-        System.out.println(name + "\n" + " Level: " + level + "\n" +
+        System.out.println(name + "\n" + "Level: " + level + "\n" +
         "Magic: " + magicLevel + ", Stealth: " + stealthLevel +
          ", Strength: " + strengthLevel);
     }
