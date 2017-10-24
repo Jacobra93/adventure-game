@@ -8,9 +8,29 @@ public class Character {
     public Character (String name) {
         this.name = name;
         this.level = 1;
-        this.magicLevel = 1;
-        this.stealthLevel = 1;
-        this.strengthLevel = 1;
+        this.magicLevel = 0;
+        this.stealthLevel = 0;
+        this.strengthLevel = 0;
+    }
+
+    public void levelUp() {
+        level++;
+    }
+
+    public void increaseSpecialty(String specialty) {
+        if (specialty == "magicLevel") {
+            magicLevel++;
+        } else if (specialty == "stealthLevel") {
+            stealthLevel++;
+        } else {
+            strengthLevel++;
+        }
+    }
+
+    public void displayCharacter() {
+        System.out.println(name + "\n" + " Level: " + level + "\n" +
+        "Magic: " + magicLevel + ", Stealth: " + stealthLevel +
+         ", Strength: " + strengthLevel);
     }
 
 }
