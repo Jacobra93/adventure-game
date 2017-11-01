@@ -5,7 +5,7 @@ public class Game {
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
-        String storyBlock = "one";
+        String storySection = "one";
         String option;
         ArrayList<Choices> choiceRepo = new ArrayList<>();
         ArrayList<Story> storyRepo = new ArrayList<>();
@@ -32,7 +32,7 @@ public class Game {
         choiceRepo.add(ch1ChoiceA);
 
         Choices ch1ChoiceB = new Choices("one", "B",
-                "Faintly excited at the notion of getting to fight", "twoB");
+                "faintly excited at the notion of getting to fight", "twoB");
         choiceRepo.add(ch1ChoiceB);
 
         Story twoA = new Story("twoA", "...frightened. The Dark Horde is notorious for their savagery,\n" +
@@ -56,30 +56,36 @@ public class Game {
                 "always going over one hill or another. I just hope he hasn't gotten lost in the woods again.");
         storyRepo.add(twoB);
 
-        Choices ch2Choice = new Choices("twoA", "A", "Continue", "three");
-        choiceRepo.add(ch2Choice);
+        Choices ch2ChoiceA = new Choices("twoA", "A", "Continue", "three");
+        choiceRepo.add(ch2ChoiceA);
+        Choices ch2ChoiceB = new Choices("twoB", "A", "Continue","three");
+        choiceRepo.add(ch2ChoiceB);
 
+
+        // main loop for the game
         while (continueFlag) {
             ArrayList<Choices> specificChoices = new ArrayList<>();
 
             for (Story story : storyRepo) {
-                if (story.storyName.equals(storyBlock)) {
+                if (story.storyName.equals(storySection)) {
                     story.printStory();
-                }
-
-                for (Choices choice : choiceRepo) {
-                    if (choice.storyBlock.equals(storyBlock)) {
-                        choice.printChoices();
-                        specificChoices.add(choice);
                     }
                 }
 
+            for (Choices choice : choiceRepo) {
+                if (choice.storyBlock.equals(storySection)) {
+                    choice.printChoices();
+                    specificChoices.add(choice);
+                }
+            }
+
+
+
                 System.out.println("Choose a response: ");
                 option = reader.nextLine();
-
                 if (!option.equals("A") &&
-                    !option.equals("B") &&
-                    !option.equals("Exit")) {
+                        !option.equals("B") &&
+                        !option.equals("Exit")) {
                     System.out.println("Invalid input. Enter A, B or Exit");
                     option = reader.nextLine();
                 }
@@ -89,9 +95,11 @@ public class Game {
                     break;
                 }
 
+
+
                 for (Choices specificChoice : specificChoices) {
                     if (specificChoice.option.equals(option)) {
-                        storyBlock = specificChoice.result;
+                        storySection = specificChoice.result;
                     }
                 }
 
@@ -99,6 +107,6 @@ public class Game {
         }
 
     }
-}
+
 
 
