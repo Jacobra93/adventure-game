@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -24,15 +25,6 @@ public class Game {
                 "the Dark Hordes have taken to ravaging the countryside again, though, so it's only a matter\n" +
                 "of time until something very bad happens.\n" +
                 "The thought of them coming to my village and having to defend it makes me...\n");
-        storyRepo.add(one);
-
-        Choices ch1ChoiceA = new Choices("one", "A",
-                "frightened", "twoA");
-        choiceRepo.add(ch1ChoiceA);
-
-        Choices ch1ChoiceB = new Choices("one", "B",
-                "faintly excited at the notion of getting to fight", "twoB");
-        choiceRepo.add(ch1ChoiceB);
 
         Story twoA = new Story("twoA", "...frightened. The Dark Horde is notorious for their savagery,\n" +
                 " and the king lets them loose to keep the populous of our country in fear of him. Their warriors\n" +
@@ -41,7 +33,6 @@ public class Game {
                 "quick count I realize that Pud has gone missing. That fluffer, always going over one hill or\n" +
                 "another. I just hope he hasn't gotten lost in the woods again. I might have to chase off another\n" +
                 "bear.");
-        storyRepo.add(twoA);
 
         Story twoB = new Story("twoB", "...faintly excited at the notion of getting to fight. Though\n" +
                 " the Dark Horde is notorious for their savagery, I would almost welcome a chance to fight some\n" +
@@ -53,12 +44,18 @@ public class Game {
                 "me a chance to practice the sword skills my father has been teaching me since he came back from\n" +
                 "the war that we lost. After a quick count realize that Pud has gone missing. That fluffer,\n" +
                 "always going over one hill or another. I just hope he hasn't gotten lost in the woods again.");
-        storyRepo.add(twoB);
 
+        Choices ch1ChoiceA = new Choices("one", "A",
+                "frightened", "twoA");
+        Choices ch1ChoiceB = new Choices("one", "B",
+                "faintly excited at the notion of getting to fight", "twoB");
         Choices ch2ChoiceA = new Choices("twoA", "A", "Continue", "three");
-        choiceRepo.add(ch2ChoiceA);
         Choices ch2ChoiceB = new Choices("twoB", "A", "Continue","three");
-        choiceRepo.add(ch2ChoiceB);
+
+        Collections.addAll(storyRepo, one, twoA, twoB);
+        Collections.addAll(choiceRepo, ch1ChoiceA, ch1ChoiceB, ch2ChoiceA,ch2ChoiceB);
+
+
 
 
         // main loop for the game
@@ -78,8 +75,6 @@ public class Game {
                 }
             }
 
-
-
             System.out.println("Choose a response: ");
             option = reader.nextLine();
             while (!option.equals("A") &&
@@ -92,8 +87,6 @@ public class Game {
             if (option.equals("Exit")) {
                 break;
             }
-
-
 
             for (Choices specificChoice : specificChoices) {
                 if (specificChoice.option.equals(option)) {
