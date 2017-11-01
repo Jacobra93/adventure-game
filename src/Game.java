@@ -9,7 +9,6 @@ public class Game {
         String option;
         ArrayList<Choices> choiceRepo = new ArrayList<>();
         ArrayList<Story> storyRepo = new ArrayList<>();
-        boolean continueFlag = true;
 
         Story one = new Story("one", "The many rolling fields within Argonia are ideal for\n" +
                 "raising sheep, which is what my family has done for generations. In my grandfather's\n" +
@@ -63,7 +62,7 @@ public class Game {
 
 
         // main loop for the game
-        while (continueFlag) {
+        while (true) {
             ArrayList<Choices> specificChoices = new ArrayList<>();
 
             for (Story story : storyRepo) {
@@ -81,32 +80,31 @@ public class Game {
 
 
 
-                System.out.println("Choose a response: ");
+            System.out.println("Choose a response: ");
+            option = reader.nextLine();
+            while (!option.equals("A") &&
+                    !option.equals("B") &&
+                    !option.equals("Exit")) {
+                System.out.println("Invalid input. Enter A, B or Exit");
                 option = reader.nextLine();
-                if (!option.equals("A") &&
-                        !option.equals("B") &&
-                        !option.equals("Exit")) {
-                    System.out.println("Invalid input. Enter A, B or Exit");
-                    option = reader.nextLine();
-                }
-
-                if (option.equals("Exit")) {
-                    continueFlag = false;
-                    break;
-                }
-
-
-
-                for (Choices specificChoice : specificChoices) {
-                    if (specificChoice.option.equals(option)) {
-                        storySection = specificChoice.result;
-                    }
-                }
-
             }
-        }
 
+            if (option.equals("Exit")) {
+                break;
+            }
+
+
+
+            for (Choices specificChoice : specificChoices) {
+                if (specificChoice.option.equals(option)) {
+                    storySection = specificChoice.result;
+                }
+            }
+
+        }
     }
+
+}
 
 
 
