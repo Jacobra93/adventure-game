@@ -1,17 +1,38 @@
-import java.util.Collections;
-import java.util.Scanner;
+package com.github.jacobra93.games.adventure.config;
+
+import com.github.jacobra93.games.adventure.data.Choice;
+import com.github.jacobra93.games.adventure.enums.Option;
+import com.github.jacobra93.games.adventure.enums.StoryName;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Game {
+public class GameInitializer {
 
-    public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in);
-        String storySection = "one";
-        String option;
-        ArrayList<Choices> choiceRepo = new ArrayList<>();
-        ArrayList<Story> storyRepo = new ArrayList<>();
+    public static List<Choice> loadChoices(){
+        List<Choice> choices = new ArrayList<>();
 
-        Story one = new Story("one", "The many rolling fields within Argonia are ideal for\n" +
+        choices.add(new Choice(StoryName.ONE, Option.A, "frightened", StoryName.TWO_A));
+        choices.add(new Choice(StoryName.ONE, Option.B, "faintly excited at the notion of getting to fight", StoryName.TWO_B));
+        choices.add(new Choice(StoryName.TWO_A, Option.A, "Continue", StoryName.THREE));
+        choices.add(new Choice(StoryName.TWO_B, Option.A, "Continue",StoryName.THREE));
+
+        return choices;
+    }
+
+    public static Map<StoryName, String> loadStories(){
+        Map<StoryName, String> stories = new HashMap<>();
+
+        /*
+         * I removed the Story object because it currently only contains 2 fields which are effectively a
+         * key-value pair (which is what a map is for :) ). If your stories end up needing more fields, I would
+         * still use a map, but instead of a String value, put your Story object as the value.
+         *
+         */
+
+        stories.put(StoryName.ONE, "The many rolling fields within Argonia are ideal for\n" +
                 "raising sheep, which is what my family has done for generations. In my grandfather's\n" +
                 "day, our village was known all round for having some of the best sheep in the land.\n" +
                 "It's not anymore. For years we've barely had enough sheep to help keep our family fe\n " +
@@ -26,7 +47,7 @@ public class Game {
                 "of time until something very bad happens.\n" +
                 "The thought of them coming to my village and having to defend it makes me...\n");
 
-        Story twoA = new Story("twoA", "...frightened. The Dark Horde is notorious for their savagery,\n" +
+        stories.put(StoryName.TWO_A, "...frightened. The Dark Horde is notorious for their savagery,\n" +
                 " and the king lets them loose to keep the populous of our country in fear of him. Their warriors\n" +
                 "are cold blooded killers, and their mages are even worse. Just thinking of coming into contact\n" +
                 "with them makes me stir from the place I have been sitting on the hill. I look up and after a\n" +
@@ -34,7 +55,7 @@ public class Game {
                 "another. I just hope he hasn't gotten lost in the woods again. I might have to chase off another\n" +
                 "bear.");
 
-        Story twoB = new Story("twoB", "...faintly excited at the notion of getting to fight. Though\n" +
+        stories.put(StoryName.TWO_B, "...faintly excited at the notion of getting to fight. Though\n" +
                 " the Dark Horde is notorious for their savagery, I would almost welcome a chance to fight some\n" +
                 "of them. The king lets them loose to keep the populous of our country in fear of him.  Their\n" +
                 "warriors are cold blooded killers, and their mages are even worse. This makes me concerned for\n" +
@@ -45,59 +66,6 @@ public class Game {
                 "the war that we lost. After a quick count realize that Pud has gone missing. That fluffer,\n" +
                 "always going over one hill or another. I just hope he hasn't gotten lost in the woods again.");
 
-        Choices ch1ChoiceA = new Choices("one", "A",
-                "frightened", "twoA");
-        Choices ch1ChoiceB = new Choices("one", "B",
-                "faintly excited at the notion of getting to fight", "twoB");
-        Choices ch2ChoiceA = new Choices("twoA", "A", "Continue", "three");
-        Choices ch2ChoiceB = new Choices("twoB", "A", "Continue","three");
-
-        Collections.addAll(storyRepo, one, twoA, twoB);
-        Collections.addAll(choiceRepo, ch1ChoiceA, ch1ChoiceB, ch2ChoiceA,ch2ChoiceB);
-
-
-
-
-        // main loop for the game
-        while (true) {
-            ArrayList<Choices> specificChoices = new ArrayList<>();
-
-            for (Story story : storyRepo) {
-                if (story.storyName.equals(storySection)) {
-                    story.printStory();
-                    }
-                }
-
-            for (Choices choice : choiceRepo) {
-                if (choice.storyBlock.equals(storySection)) {
-                    choice.printChoices();
-                    specificChoices.add(choice);
-                }
-            }
-
-            System.out.println("Choose a response: ");
-            option = reader.nextLine();
-            while (!option.equals("A") &&
-                    !option.equals("B") &&
-                    !option.equals("Exit")) {
-                System.out.println("Invalid input. Enter A, B or Exit");
-                option = reader.nextLine();
-            }
-
-            if (option.equals("Exit")) {
-                break;
-            }
-
-            for (Choices specificChoice : specificChoices) {
-                if (specificChoice.option.equals(option)) {
-                    storySection = specificChoice.result;
-                }
-            }
-
-        }
+        return stories;
     }
-
 }
-
-
-
