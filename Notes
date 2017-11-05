@@ -1,0 +1,14 @@
+You're off to a good start.. Some things you'll want to do going forward.
+
+1) Put your classes into packages. Best practice is to use a unique domain name. Because you have a Github account,
+you can use the 'github.com/jacobra93' domain because it is unique to you. That is why I created the package
+'com.github.jacobra93'. No one else *should* use that package because it is unique to you.
+
+2) Use enums. There are/were a lot of 'magic Strings' in this code. Generally you want to avoid using strings for
+comparison operations. Using enums makes it much easier to navigate a code-base and refactor things.
+
+3) Follow the 'single-responsibility' principle. Each class should do only one thing.
+
+4) Remove project files from source-control (Github). I added a .gitignore file to help with this.
+
+5) Let me know if you have other questions.
